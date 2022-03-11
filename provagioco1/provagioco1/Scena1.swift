@@ -15,7 +15,7 @@ class MappaScene : SKScene {
     override func sceneDidLoad() {
         addChild(mappa2)
         mappa2.position = CGPoint(x: frame.midX, y: frame.midY)
-        mappa2.size = CGSize(width: 1.0, height: 1.0)
+        mappa2.size = CGSize(width: 1.0, height: 0.5)
     }
     
 }
