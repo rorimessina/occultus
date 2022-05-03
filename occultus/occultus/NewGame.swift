@@ -10,13 +10,18 @@ import SpriteKit
 
 class CreateGame : SKScene {
     
- let mappa2 = SKSpriteNode(imageNamed: "mappa2")
+ let mappa2 = SKSpriteNode(imageNamed: "Mappanuova")
     //let tastoindietro = SKSpriteNode(imageNamed: "freccia")
-    let giovanna = SKSpriteNode(imageNamed: "giovanna")
+    let giovanna = SKSpriteNode(imageNamed: "down_0")
+    let giovannaUpFrames = [SKTexture]()
+    let giovannaDownFrames = [SKTexture]()
+    let giovannaLeftFrames = [SKTexture]()
+    let giovannaRightFrames = [SKTexture]()
     let CameraNode = SKCameraNode()
     
     //tasti per il movimento
     
+    let arrows = SKNode()
     let goOn = SKSpriteNode(imageNamed: "freccisaSu")
     let goBack = SKSpriteNode(imageNamed: "frecciaGiù")
     let goRight = SKSpriteNode(imageNamed: "frecciaDestra")
@@ -39,24 +44,38 @@ class CreateGame : SKScene {
         giovanna.position = CGPoint(x: frame.midX, y: frame.midY)
         
         goOn.size = CGSize(width: 70.0, height: 70.0)
-        goOn.position = CGPoint(x: (frame.minX + 180.0), y: (frame.midY - 220.0))
+        goOn.position = CGPoint(x: arrows.position.x, y: arrows.position.y + 60.0)
         
         goBack.size = CGSize(width: 70.0, height: 70.0)
-        goBack.position = CGPoint(x: (goOn.position.x), y: (goOn.position.y - 160.0))
+        goBack.position = CGPoint(x: (arrows.position.x), y: (arrows.position.y - 60.0))
         
         goRight.size = CGSize(width: 70.0, height: 70.0)
-        goRight.position = CGPoint(x: (goOn.position.x + 80.0), y: (goOn.position.y - 80.0))
+        goRight.position = CGPoint(x: (arrows.position.x + 60.0), y: (arrows.position.y))
         
         goLeft.size = CGSize(width: 70.0, height: 70.0)
-        goLeft.position = CGPoint(x: (goRight.position.x - 160.0), y: (goOn.position.y - 80.0))
+        goLeft.position = CGPoint(x: (arrows.position.x - 60.0), y: (arrows.position.y ))
+        
+        
+        arrows.zPosition = 999
+        
         
         addChild(mappa2)
         //addChild(tastoindietro)
         addChild(giovanna)
-        addChild(goOn)
-        addChild(goBack)
-        addChild(goRight)
-        addChild(goLeft)
+
+        
+        arrows.addChild(goOn)
+        arrows.addChild(goBack)
+        arrows.addChild(goRight)
+        arrows.addChild(goLeft)
+       
+    
+//        self.addChild(arrows)
+        CameraNode.addChild(arrows)
+        addChild(CameraNode)
+    
+        
+        arrows.position = CGPoint(x: ((self.size.width / 2) * -1) + 140.0, y: ((self.size.height / 2) * -1) + 140.0)
         
         camera = CameraNode
         
@@ -67,6 +86,7 @@ class CreateGame : SKScene {
     override func update(_ currentTime: TimeInterval) {
         camera?.position.x = giovanna.position.x
         camera?.position.y = giovanna.position.y
+        
     }
     
     
@@ -95,7 +115,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     else if(goRight.position.x == nodotoccato.first?.position.x &&
             goRight.position.y == nodotoccato.first?.position.y) {
              
-        giovanna.run(SKAction.move(to: CGPoint(x: giovanna.position.x + 40.0, y: giovanna.position.y), duration: 1.50))
+        giovanna.run(SKAction.move(to: CGPoint(x: giovanna.position.x + 40.0, y: giovanna.position.y), duration: 5.0))
        
    }
     
